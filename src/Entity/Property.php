@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -92,10 +94,17 @@ class Property
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Optione", inversedBy="properties")
+     */
+    private $optiones;
+
     public function __construct()
     {
-        $this->created_at = new \DateTime();
+        $this->optiones = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -265,4 +274,33 @@ class Property
 
         return $this;
     }
+
+    /**
+     * @return Collection|Optione[]
+     */
+    public function getOptiones(): Collection
+    {
+        return $this->optiones;
+    }
+
+    public function addOptione(Optione $optione): self
+    {
+        if (!$this->optiones->contains($optione)) {
+            $this->optiones[] = $optione;
+            $optione->addProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOptione(Optione $optione): self
+    {
+        if ($this->optiones->contains($optione)) {
+            $this->optiones->removeElement($optione);
+            $optione->removeProperty($this);
+        }
+
+        return $this;
+    }
+    
 }

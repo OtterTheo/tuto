@@ -40,6 +40,15 @@ class PropertyRepository extends ServiceEntityRepository
                 ->andwhere(('p.surface >= :minSurface'))
                 ->setParameter('minSurface', $search->getMinSurface());
         }
+        if ($search->getOptiones()->count() > 0) {
+            $k = 0;
+          foreach ($search->getOptiones() as $k => $optione){
+              $k++;
+              $query = $query
+                  ->andWhere(":optione$k MEMBER OF p.optiones")
+                  ->setParameter("optione$k" ,  $optione);
+          }
+        }
             return $query->getQuery();
     }
 

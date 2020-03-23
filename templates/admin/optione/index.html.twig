@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title  'Gérer les options' %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <h1>Gérer les options</h1>
+{#        Pour tous les messages qui serai dans les messages flash de succés#}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for optione in optiones %}
+            <tr>
+                <td>{{ optione.name }}</td>
+                <td>
+                    <a href="{{ path('admin.optione.edit', {id: optione.id}) }}" class="btn btn-secondary">Editer</a>
+                    <form method="post" action="{{ path('admin.optione.delete', {id: optione.id}) }}" style="display: inline-block;" onsubmit="return confirm('Etes vous vraiment sur ?')">
+                        <input type="hidden" name="_method" value="DELETE">
+{#                        Créer un token unique pour chaque bien, sers au niveau sécurité#}
+                        <input type="hidden" name="_token" value="{{ csrf_token('admin/delete' ~ optione.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <a href="{{ path('admin.optione.new') }}" class="btn btn-primary">Créer un nouveau bien</a>
+        </div>
+    </div>
+{% endblock %}
