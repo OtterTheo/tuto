@@ -7,6 +7,7 @@ use App\Entity\Property;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,8 +28,13 @@ class PropertyType extends AbstractType
             ])
             ->add('optiones',EntityType::class, [
                 'class' => Optione::class,
+                'required' => false,
                 'choice_label' => 'name',
                 'multiple' => true
+            ])
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+
             ])
             ->add('city')
             ->add('address')

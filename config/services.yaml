@@ -27,3 +27,7 @@ services:
     # please note that last definitions always *replace* previous ones
     Doctrine\Persistence\ObjectManager: '@doctrine.orm.default_entity_manager'
 #    ajouter cette ligne si ObjectManager ne marche pas
+
+    App\Listener\ImageCacheSubscriber:
+        tags:
+          {name: doctrine.event_subscriber}

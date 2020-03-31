@@ -1,0 +1,23 @@
+liip_imagine:
+  resolvers:
+    default1:
+      web_path:
+        # use %kernel.project_dir%/web for Symfony prior to 4.0.0
+        web_root: "%kernel.project_dir%/public"
+        cache_prefix: "media/cache"
+
+  cache: default1
+
+  filter_sets:
+    thumb1:
+      quality: 75
+      filters:
+        thumbnail:
+          size: [360,230]
+          mode: outbound
+    medium:
+      quality: 75
+      filters:
+        thumbnail:
+          size: [800,530]
+          mode: outbound

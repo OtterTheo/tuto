@@ -2,12 +2,14 @@
 
 namespace App\Repository;
 
+use App\Entity\Optione;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Property|null find($id, $lockMode = null, $lockVersion = null)
@@ -64,7 +66,9 @@ class PropertyRepository extends ServiceEntityRepository
 
     private function findVisibleQuery() : QueryBuilder{
         return $this->createQueryBuilder('p')
-            ->where('p.sold = false');
+//            ->innerJoin(Optione::class, 'op', Join::WITH, 'p.id = op.id')
+//            ->andWhere('op.id = p.id')
+            ->andwhere('p.sold = false');
     }
     // /**
     //  * @return Property[] Returns an array of Property objects

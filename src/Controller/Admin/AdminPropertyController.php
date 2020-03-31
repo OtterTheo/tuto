@@ -61,6 +61,7 @@ class AdminPropertyController extends AbstractController {
             'form' => $form->createView()
         ]);
     }
+
     /**
      * @Route("/admin/property/{id}", name="admin.property.edit", methods="GET|POST")
      * @param Property $property
@@ -71,6 +72,7 @@ class AdminPropertyController extends AbstractController {
     public function edit(Property $property, Request $request): Response {
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
             $this->addFlash('success', 'Bien modifié avec succés !');

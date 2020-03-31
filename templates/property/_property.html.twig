@@ -1,4 +1,12 @@
 <div class="card mb-4">
+    {% if property.filename %}
+{#        genere le lien automatique vers l'image#}
+        <img src="{{ vich_uploader_asset(property, 'imageFile') | imagine_filter('thumb1') }}" alt="Image" class="card-img-top"
+             style="width: auto; height: 230px;">
+    {% else %}
+        <img src="{{ '/images/properties/empty.jpg' | imagine_filter('thumb1') }}" alt="Image" class="card-img-top">
+    {% endif %}
+
     <div class="card-body">
         <h5 class="card-title">
             <a href="{{ path('property.show', {slug: property.slug, id: property.id}) }}">
@@ -13,3 +21,6 @@
         </div>
     </div>
 </div>
+
+
+
